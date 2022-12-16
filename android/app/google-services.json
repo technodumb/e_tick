@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "65043718768",
+    "project_id": "e-tick",
+    "storage_bucket": "e-tick.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65043718768:android:eb9a20aa555f3c791ccab5",
+        "android_client_info": {
+          "package_name": "com.example.e_tick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65043718768-e6lo35v6puub92vi2qs6jn6bq0811mvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlrQND-X-X9feQiHezX-eWVSSeqfDIGns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65043718768-e6lo35v6puub92vi2qs6jn6bq0811mvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
