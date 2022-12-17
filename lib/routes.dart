@@ -1,4 +1,4 @@
-import 'HomeScreen/home_screen.dart';
+import 'screens/screens.dart';
 
 final routes = {
   '/home': (context) => HomeScreen(),
