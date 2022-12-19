@@ -1,6 +1,7 @@
-import 'package:e_tick/provider/menu_provider.dart';
+import 'package:e_tick/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'movie_box.dart';
 
 class MovieSliders extends StatelessWidget {
   final String sectionName;
@@ -37,14 +38,21 @@ class MovieSliders extends StatelessWidget {
                     (index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          movieSelectProvider.selectMovie(index % 10);
+                          // go to movie details page
+                          Navigator.pushNamed(
+                            context,
+                            '/movie_details',
+                            // arguments: index,
+                          );
+                        },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,
                         ),
                         onHover: (value) {
                           if (value) {
                             movieSelectProvider.setHoveredMovie(index);
-                            print(movieSelectProvider.hoveredMovie);
                           } else {
                             movieSelectProvider.setHoveredMovie(-1);
                           }
@@ -60,55 +68,6 @@ class MovieSliders extends StatelessWidget {
             ),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class MovieBox extends StatelessWidget {
-  final int index;
-  final bool isHovered;
-  const MovieBox({super.key, required this.index, this.isHovered = false});
-
-  @override
-  Widget build(BuildContext context) {
-    print(isHovered);
-    return Stack(
-      children: [
-        Image(
-          image: AssetImage(
-            'assets/images/posters/${index % 10}.jpg',
-          ),
-          height: 300,
-        ),
-        if (isHovered)
-          Positioned.fill(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Play',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
       ],
     );
   }
