@@ -1,8 +1,12 @@
 import 'package:e_tick/database/moviedata.dart';
 import 'package:e_tick/provider/provider.dart';
+import 'package:e_tick/screens/MovieDetailsScreen/components/seat_select_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tick/components/components.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
+
+import 'components/components.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   const MovieDetailsScreen({super.key});
@@ -14,7 +18,13 @@ class MovieDetailsScreen extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final selectedIndex =
         Provider.of<MovieSelectProvider>(context).selectedMovie;
+    final selectedSeatProvider = Provider.of<SeatSelectProvider>(context);
+    final List<int> selectedSeatLocs = selectedSeatProvider.selectedSeatLocs;
     final Movie movie = movieData[selectedIndex]!;
+    final movieSelectProvider = Provider.of<MovieSelectProvider>(context);
+    final showListOptions = movieSelectProvider.showListOptions;
+    final List showTimeSlots = showListOptions.getShowTimesByIndexAndDate(
+        selectedIndex, movieSelectProvider.selectedDate);
     return SafeArea(
       child: Scaffold(
         // drawer: const SideBar(),
@@ -55,7 +65,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Image(
-                                      width: width * 0.3,
+                                      width: width * 0.25,
                                       image: AssetImage(
                                         movie.image,
                                       ),
@@ -64,23 +74,27 @@ class MovieDetailsScreen extends StatelessWidget {
                                     SizedBox(
                                       width: width * 0.05,
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          movie.name,
-                                          style: TextStyle(
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            movie.name,
+                                            style: TextStyle(
                                               fontSize: width * 0.03,
-                                              color: Colors.white),
-                                        ),
-                                        SizedBox(
-                                          height: height * 0.01,
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.44,
-                                          child: Text(
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          SizedBox(
+                                            height: height * 0.03,
+                                            // alignment: Alignment.centerLeft,
+                                          ),
+                                          Text(
                                             movie.description,
                                             textAlign: TextAlign.justify,
                                             style: TextStyle(
@@ -88,8 +102,8 @@ class MovieDetailsScreen extends StatelessWidget {
                                               color: Colors.white,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
@@ -99,7 +113,47 @@ class MovieDetailsScreen extends StatelessWidget {
                                 Row(children: []),
                               ],
                             ),
-                          )
+                          ),
+                          Container(
+                            // height: height * 0.4,
+                            width: double.infinity,
+                            // color: Colors.black,
+                            padding: EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  'Book Tickets',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: MovieShowCalendar(
+                                        index: selectedIndex,
+                                      ),
+                                    ),
+                                    // TextButton()
+                                    Column(children: [
+                                      for (int i = 0; i < 3; i++)
+                                        TimeSlotButton(slotIndex: i)
+                                    ]),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

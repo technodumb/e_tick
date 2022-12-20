@@ -6,11 +6,13 @@ import 'routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MenuProvider()),
         ChangeNotifierProvider(create: (context) => MovieSelectProvider()),
+        ChangeNotifierProvider(create: (context) => SeatSelectProvider()),
       ],
       child: MaterialApp(
         initialRoute: '/home',

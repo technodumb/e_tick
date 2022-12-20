@@ -40,6 +40,9 @@ class MovieBox extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
                       width: double.infinity,
                       child: Text(
                         movie.genre.join(" | "),
